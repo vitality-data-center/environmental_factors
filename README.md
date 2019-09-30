@@ -36,8 +36,8 @@ Land use classification:
 -Group 1, residential, 20
 -Group 2, recreational 40, 41, 42, 43, 44, 50, 51, 60, 61, 62, 70, 71, 72, 73, 74, 75, 76, 77, 78, 80, 81, 82, 83
 -Group 3, other: 10, 11, 12, 20, 21, 22, 23, 24, 30, 31, 32, 33, 34, 35
-<img width="250" height="400" src="https://github.com/vitality-data-center/environmental_factors/blob/master/images/landuse1.png" />
-<img width="250" height="400" src="https://github.com/vitality-data-center/environmental_factors/blob/master/images/landuse2.png" />
+<img width="250"  src="https://github.com/vitality-data-center/environmental_factors/blob/master/images/landuse1.png" />
+<img width="250"  src="https://github.com/vitality-data-center/environmental_factors/blob/master/images/landuse2.png" />
 
 
 
