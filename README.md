@@ -3,14 +3,21 @@ development of environmental factors at 4 and 6 digit postcode level of the Neth
 
 
 
-#### Street length/street density (from OPenStreetMap)
-#### Residential Building area/building density (from OpenStreetMap) 
+#### Street density (from OpenStreetMap)
+For pc4, its value is the total length of all walking streets divided by the area of pc4. 
+For pc6, its value is the total length of all walking streets divided by the buffer area around the pc6 centroid.
+<img width="650"  src="https://github.com/vitality-data-center/environmental_factors/blob/master/images/road.png" />
 
 
-#### air pollution indicators
+#### Residential building density (from OpenStreetMap) 
+For pc4, its value is the total area of all residential buildings divided by the area of pc4. 
+For pc6, its value is the total length of all residential buildings divided by the buffer area around the pc6 centroid.
+
+#### air pollution indicators (from European Environment Agency https://www.eea.europa.eu/)
 
 #### noise pollution
-The noise pollution data is provided by RIVM (Rijksinstituut voor Volksgezondheid en Milieu), and can be downloaded as GIS file from https://www.atlasnatuurlijkkapitaal.nl/kaarten. Some description of the noise data can be found below. ![image](http://github.com/itmyhome2013/readme_add_pic/raw/master/images/nongshalie.jpg)
+The noise pollution data is provided by RIVM (Rijksinstituut voor Volksgezondheid en Milieu), and can be downloaded as GIS file from https://www.atlasnatuurlijkkapitaal.nl/kaarten. Some description of the noise data can be found below. 
+<img width="650"  src="https://github.com/vitality-data-center/environmental_factors/blob/master/images/noise_map.png" />
 
 1 = zeer goed 		Lden<=45 dB <br>
 2 = goed 			45<Lden<=50 dB <br>
@@ -29,6 +36,16 @@ De geluidklassen hebben betrekking op de cumulatieve geluidbelasting in Lden (ja
 
 For pc4, indicator for noise level 1 is represented by dn_1, which is the ratio of the area of noise level 1 in the pc4 area. The same for other noise levels 2, 3, 4, 5, 6. 
 For pc6, indicator for noise level 1 is represented by dn_1, which is the ratio of the area of noise level 1 in the buffer area of the pc6 centroid. The same for other noise levels 2, 3, 4, 5, 6. 
+
+
+#### Landuse mix entropy (derived from Bestand Bodemgebruik)
+Land use classification:
+- Group 1, residential, 20
+- Group 2, recreational 40, 41, 42, 43, 44, 50, 51, 60, 61, 62, 70, 71, 72, 73, 74, 75, 76, 77, 78, 80, 81, 82, 83
+- Group 3, other: 10, 11, 12, 21, 22, 23, 24, 30, 31, 32, 33, 34, 35
+<img width="600"  src="https://github.com/vitality-data-center/environmental_factors/blob/master/images/landuse1.png" />
+<img width="618"  src="https://github.com/vitality-data-center/environmental_factors/blob/master/images/landuse2.png" />
+
 
 
 
