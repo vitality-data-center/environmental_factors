@@ -12,12 +12,12 @@ development of environmental factors at 4 and 6 digit postcode level of the Neth
 #### noise pollution
 The noise pollution data is provided by RIVM (Rijksinstituut voor Volksgezondheid en Milieu), and can be downloaded as GIS file from https://www.atlasnatuurlijkkapitaal.nl/kaarten. Some description of the noise data can be found below. 
 
-1 = zeer goed 		Lden<=45 dB
-2 = goed 			45<Lden<=50 dB
-3 = redelijk 		50<Lden<=55 dB
-4 = matig 			55<Lden<=60 dB
-5 = slecht 			60<Lden<=65 dB
-6,7,8 = zeer slecht 		Lden>65 dB
+1 = zeer goed 		Lden<=45 dB <br>
+2 = goed 			45<Lden<=50 dB <br>
+3 = redelijk 		50<Lden<=55 dB <br>
+4 = matig 			55<Lden<=60 dB <br>
+5 = slecht 			60<Lden<=65 dB <br>
+6,7,8 = zeer slecht 		Lden>65 dB <br>
 
 De geluidklassen hebben betrekking op de cumulatieve geluidbelasting in Lden (jaar) als veroorzaakt door
 - rijkswegen (2016)
