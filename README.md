@@ -4,7 +4,7 @@ development of environmental factors at 4 and 6 digit postcode level of the Neth
 
 
 #### Street density (from OpenStreetMap)
-For pc4, its value is the total length of all walking streets divided by the area of pc4. 
+For pc4 , its value is the total length of all walking streets divided by the area of pc4. 
 For pc6, its value is the total length of all walking streets divided by the buffer area around the pc6 centroid.
 <img width="600" height="700"  src="https://github.com/vitality-data-center/environmental_factors/blob/master/images/road.png" />
 
@@ -15,8 +15,8 @@ For pc6, its value is the total length of all residential buildings divided by t
 
 #### air pollution indicators (from European Environment Agency https://www.eea.europa.eu/)
 Total 4 air pollution indicators are generated: NO2 (1000m x 1000m), PM25 (1000m x 1000m), PM10 (1000m x 1000m), NOx (2000m x 2000m).
-For pc4, their values are the average values of all cells in each pc4. 
-For pc6, their values are the average values of all cells in the buffer around pc6 centroid.
+For pc4 and each type of air pollution, their values are the average values of all cells in each pc4. 
+For pc6 and each type of air pollution, their values are the average values of all cells in the buffer around pc6 centroid.
 <img width="600" height="700"  src="https://github.com/vitality-data-center/environmental_factors/blob/master/images/air.png" />
 
 
@@ -51,7 +51,10 @@ Land use classification:
 <img width="600"  src="https://github.com/vitality-data-center/environmental_factors/blob/master/images/landuse1.png" />
 <img width="618"  src="https://github.com/vitality-data-center/environmental_factors/blob/master/images/landuse2.png" />
 
-
+#### NDVI (Normalized Difference Vegetation Index), more details of ndvi can be found via the following link:
+https://gisgeography.com/ndvi-normalized-difference-vegetation-index/
+For pc4, their values are the average values of all cells of in each pc4. 
+For pc6, their values are the average values of all cells in the buffer around pc6 centroid.
 
 
 
