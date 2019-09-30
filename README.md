@@ -56,7 +56,7 @@ The details of ndvi can be found via the following link:
 https://gisgeography.com/ndvi-normalized-difference-vegetation-index/
 For pc4, their values are the average values of all cells of in each pc4. 
 For pc6, their values are the average values of all cells in the buffer around pc6 centroid.
-<img width="600" height="700"  src="https://github.com/vitality-data-center/environmental_factors/blob/master/images/air.png" />
+<img width="600" height="700"  src="https://github.com/vitality-data-center/environmental_factors/blob/master/images/ndvi.png" />
 
 
 
