@@ -6,7 +6,7 @@ development of environmental factors at 4 and 6 digit postcode level of the Neth
 #### Street density (from OpenStreetMap)
 For pc4, its value is the total length of all walking streets divided by the area of pc4. 
 For pc6, its value is the total length of all walking streets divided by the buffer area around the pc6 centroid.
-<img width="650"  src="https://github.com/vitality-data-center/environmental_factors/blob/master/images/road.png" />
+<img width="300"  src="https://github.com/vitality-data-center/environmental_factors/blob/master/images/road.png" />
 
 
 #### Residential building density (from OpenStreetMap) 
