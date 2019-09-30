@@ -1,6 +1,5 @@
 # environmental_factors
-development of environmental factors at 4 and 6 digit postcode level of the Netherlands. All these factors are developed in line with our research plan (https://drive.google.com/file/d/1Nhf7pXeVYyrci7rVWXKwKhQQnDwtCinI/view?usp=sharing), and will be linked to travel behavior variables. 
-
+development of environmental factors at 4 and 6 digit postcode level of the Netherlands. All these factors are developed in line with our research plan (https://drive.google.com/file/d/1Nhf7pXeVYyrci7rVWXKwKhQQnDwtCinI/view?usp=sharing), and will be linked to travel behavior variables. It sould be mentioned that the environmental factors of pc6 level are calculated given three different buffer sizes (300 meters, 600 meters and 1000 meters).
 
 
 #### Street density (from OpenStreetMap)
