@@ -10,7 +10,7 @@ development of environmental factors at 4 and 6 digit postcode level of the Neth
 #### air pollution indicators
 
 #### noise pollution
-The noise pollution data is provided by RIVM (Rijksinstituut voor Volksgezondheid en Milieu), and can be downloaded as GIS file from https://www.atlasnatuurlijkkapitaal.nl/kaarten. Some description of the noise data can be found below. ![image](http://github.com/itmyhome2013/readme_add_pic/raw/master/images/nongshalie.jpg)
+The noise pollution data is provided by RIVM (Rijksinstituut voor Volksgezondheid en Milieu), and can be downloaded as GIS file from https://www.atlasnatuurlijkkapitaal.nl/kaarten. Some description of the noise data can be found below. ![](https://github.com/vitality-data-center/environmental_factors/blob/master/images/noise_map.png)
 
 1 = zeer goed 		Lden<=45 dB <br>
 2 = goed 			45<Lden<=50 dB <br>
