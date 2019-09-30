@@ -14,6 +14,11 @@ For pc4, its value is the total area of all residential buildings divided by the
 For pc6, its value is the total length of all residential buildings divided by the buffer area around the pc6 centroid.
 
 #### air pollution indicators (from European Environment Agency https://www.eea.europa.eu/)
+Total 4 air pollution indicators are generated: NO2 (1000m x 1000m), PM25 (1000m x 1000m), PM10 (1000m x 1000m), NOx (2000m x 2000m).
+For pc4, their values are the average values of all cells in each pc4. 
+For pc6, their values are the average values of all cells in the buffer around pc6 centroid.
+<img width="600" height="700"  src="https://github.com/vitality-data-center/environmental_factors/blob/master/images/air.png" />
+
 
 #### noise pollution
 The noise pollution data is provided by RIVM (Rijksinstituut voor Volksgezondheid en Milieu), and can be downloaded as GIS file from https://www.atlasnatuurlijkkapitaal.nl/kaarten. Some description of the noise data can be found below. 
