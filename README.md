@@ -3,11 +3,17 @@ development of environmental factors at 4 and 6 digit postcode level of the Neth
 
 
 
-#### Street length/street density (from OPenStreetMap)
-#### Residential Building area/building density (from OpenStreetMap) 
+#### Street density (from OpenStreetMap)
+For pc4, its value is the total length of all walking streets divided by the area of pc4. 
+For pc6, its value is the total length of all walking streets divided by the buffer area around the pc6 centroid.
+<img width="650"  src="https://github.com/vitality-data-center/environmental_factors/blob/master/images/road.png" />
 
 
-#### air pollution indicators
+#### Residential building density (from OpenStreetMap) 
+For pc4, its value is the total area of all residential buildings divided by the area of pc4. 
+For pc6, its value is the total length of all residential buildings divided by the buffer area around the pc6 centroid.
+
+#### air pollution indicators (from European Environment Agency https://www.eea.europa.eu/)
 
 #### noise pollution
 The noise pollution data is provided by RIVM (Rijksinstituut voor Volksgezondheid en Milieu), and can be downloaded as GIS file from https://www.atlasnatuurlijkkapitaal.nl/kaarten. Some description of the noise data can be found below. 
