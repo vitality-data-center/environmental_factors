@@ -10,7 +10,6 @@ import calc_landuse_p6
 import calc_address_p6
 import calc_ndvi_p6
 import calc_crossing_p6
-import calc_no2_p6
 import utility_fun as uf
 import logging
 import time
@@ -31,10 +30,7 @@ def calc_index(buffer):
     
     
     # address
-    # calc_address_p6.calc(target_buffer_table, buffer)
-    
-    # no2 in 2011
-    calc_no2_p6.calc(target_buffer_table, buffer)
+    calc_address_p6.calc(target_buffer_table, buffer)
     
     
     

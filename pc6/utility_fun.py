@@ -22,9 +22,8 @@ add_noise_column = False
 add_ndvi_column = False
 add_crossing_column = False
 add_commercial_column = False
-add_addr_column = False
-add_no2_column = False
-add_rdvi_column = True
+add_addr_column = True
+
 
 
 
@@ -57,8 +56,8 @@ def connect():
         
     conn = None    
     if linux_mode:
-        #conn = psycopg2.connect(database="postgres_nl", user="postgres",host="/var/run/postgresql", password="postgres", port="5432")
-        conn = psycopg2.connect(database="postgres_nl", user="zywang",host="/tmp/", password="2203930_ZyW", port="5432")
+        conn = psycopg2.connect(database="postgres_nl", user="postgres",host="/var/run/postgresql", password="postgres", port="5432")
+        #conn = psycopg2.connect(database="postgres_nl", user="zywang",host="/tmp/", password="2203930_ZyW", port="5432")
     else:
         if test_mode:
             conn = psycopg2.connect(database="postgres_test", user="postgres", password="postgres", port="5433")
