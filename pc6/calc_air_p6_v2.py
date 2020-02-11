@@ -1,7 +1,7 @@
 #!/usr/bin/python
 #coding:utf-8
 
-import utility_fun as uf
+import utility_fun2 as uf
 import psycopg2
 import time 
 import logging
@@ -233,7 +233,7 @@ def calc(table, buffer):
             time_diff = round(time_diff, 2)
             time_diff_min = round(time_diff/60, 2) # in mins
             
-            print "calc air pollution index for pc6, id = ", int(id), " row_index = " , row_index, " result= " , result_one_tuple, "; running time = ", time_diff_min, " mins! ", time_diff, " sec! ", " buffer = ", buffer
+            print("calc air pollution index for pc6, id = ", int(id), " row_index = " , row_index, " result= " , result_one_tuple, "; running time = ", time_diff_min, " mins! ", time_diff, " sec! ", " buffer = ", buffer)
             logger.info("calc air pollution index for pc6, id = "+ str(int(id))+  " row_index = " + str(row_index) + " result= " +  str(result_one_tuple) + "; running time = " +  str(time_diff_min) + " mins! " + str(time_diff) + " sec! buffer = " + str(buffer))
         
             # empty list

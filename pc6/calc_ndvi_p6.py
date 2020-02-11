@@ -2,7 +2,7 @@
 #coding:utf-8
 
 
-import utility_fun as uf
+import utility_fun2 as uf
 import math
 import psycopg2
 import time
@@ -60,9 +60,9 @@ def calc_ndvi_avg(id, geom_txt, buffer):
             total_value = total_value + ndvi_value * ndvi_count
             
             
-        if total_num == 0:
-            logger.info("pc6 gid = "+ str(id) + " has no green value!")
-            return id, ndvi_avg    
+    if total_num == 0:
+        logger.info("pc6 gid = "+ str(id) + " has no green value!")
+        return id, ndvi_avg    
         
     #print('avg = ', ndvi_avg, total_value, total_num)     
 
@@ -108,7 +108,7 @@ def calc(table, buffer):
             time_diff = round(time_diff, 2)
             time_diff_min = round(time_diff/60, 2) # in mins
             
-            print "calc ndvi for pc6 id ", int(id), "row_index = " , row_index, " result= " , result_one_tuple, "; running time = ", time_diff_min, " mins! ", time_diff, " sec! ", " buffer = ", buffer
+            print("calc ndvi for pc6 id ", int(id), "row_index = " , row_index, " result= " , result_one_tuple, "; running time = ", time_diff_min, " mins! ", time_diff, " sec! ", " buffer = ", buffer)
             logger.info("calc ndvi for pc6 id "+ str(int(id))+  " row_index = " + str(row_index) + " result= " +  str(result_one_tuple) + "; running time = " +  str(time_diff_min) + " mins! " + str(time_diff) + " sec! buffer = " + str(buffer))
         
             # empty list

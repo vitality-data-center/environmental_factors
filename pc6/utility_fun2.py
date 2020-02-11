@@ -8,7 +8,7 @@ test_mode = False
 
 
 batch_number = 1000
-buffer_size_list = [300, 600, 1000, 2000]
+buffer_size_list = [300, 600, 1000]
 #buffer_size_list = [600, 1000]
 
 
@@ -19,11 +19,12 @@ add_street_column = False
 add_landuse_column = False
 add_airpollution_column = False
 add_noise_column = False
-add_ndvi_column = False
+add_ndvi_column = True
 add_crossing_column = False
 add_commercial_column = False
-add_addr_column = True
-
+add_addr_column = False
+add_no2_column = False
+add_rdvi_column = False
 
 
 
@@ -56,8 +57,8 @@ def connect():
         
     conn = None    
     if linux_mode:
-        conn = psycopg2.connect(database="postgres_nl", user="postgres",host="/var/run/postgresql", password="postgres", port="5432")
-        #conn = psycopg2.connect(database="postgres_nl", user="zywang",host="/tmp/", password="2203930_ZyW", port="5432")
+        #conn = psycopg2.connect(database="postgres_nl", user="postgres",host="/var/run/postgresql", password="postgres", port="5432")
+        conn = psycopg2.connect(database="postgres_nl", user="zywang",host="/tmp/", password="2203930_ZyW", port="5432")
     else:
         if test_mode:
             conn = psycopg2.connect(database="postgres_test", user="postgres", password="postgres", port="5433")

@@ -7,7 +7,7 @@ import time
 import logging
 import math
 
-import utility_fun as uf
+import utility_fun2 as uf
 logger = logging.getLogger("vdc_logger")
 source_table = uf.source_table # nl_pc6 table
 batch_num = uf.batch_number
@@ -137,7 +137,7 @@ def calc(table, buffer):
             time_diff = round(time_diff, 2)
             time_diff_min = round(time_diff/60, 2) # in mins
             
-            print "calc "+ variable +" index for pc6, id = ", int(id), " row_index = " , row_index, " result= " , result_one_tuple, "; running time = ", time_diff_min, " mins! ", time_diff, " sec! ", " buffer = ", buffer
+            print("calc "+ variable +" index for pc6, id = ", int(id), " row_index = " , row_index, " result= " , result_one_tuple, "; running time = ", time_diff_min, " mins! ", time_diff, " sec! ", " buffer = ", buffer)
             logger.info("calc "+ variable +" index for pc6, id = "+ str(int(id))+  " row_index = " + str(row_index) + " result= " +  str(result_one_tuple) + "; running time = " +  str(time_diff_min) + " mins! " + str(time_diff) + " sec! buffer = " + str(buffer))
         
             # empty list
@@ -151,7 +151,7 @@ def calc(table, buffer):
     total_end_time = time.time()
     total_time_diff = total_end_time - total_start_time # in seconds
     total_time_diff = round(total_time_diff/(60*60), 2)   # in hours
-    print "finish calculating " + variable +" index...processed time in hours = ", time_diff," buffer size = ", buffer
+    print("finish calculating " + variable +" index...processed time in hours = ", time_diff," buffer size = ", buffer)
     logger.info("finish calculating "+ variable +" index...processed time in hours= "+ str(time_diff) + " buffer size = " + str(buffer))        
     
     
@@ -168,10 +168,10 @@ def test():
     #print area2
     
     area3 = calc_bldg_area(11, 'POINT(139848.727 454360.278)', 0.5)
-    print area3
+    print(area3)
     
     area4 = calc_bldg_area(12, "POINT(137877.494272554 457895.100128259)", 100)
-    print area4[1]/float(math.pi*100*100)
+    print(area4[1]/float(math.pi*100*100))
 
     
 #test()    

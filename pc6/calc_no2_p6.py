@@ -2,7 +2,7 @@
 #coding:utf-8
 
 
-import utility_fun as uf
+import utility_fun2 as uf
 import math
 import psycopg2
 import time
@@ -111,7 +111,7 @@ def calc(table, buffer):
             time_diff = round(time_diff, 2)
             time_diff_min = round(time_diff/60, 2) # in mins
             
-            print "calc "+ variable_name + " for pc6 id ", int(id), " row_index = " , row_index, " result= " , result_one_tuple, "; running time = ", time_diff_min, " mins! ", time_diff, " sec! ", " buffer = ", buffer
+            print("calc "+ variable_name + " for pc6 id ", int(id), " row_index = " , row_index, " result= " , result_one_tuple, "; running time = ", time_diff_min, " mins! ", time_diff, " sec! ", " buffer = ", buffer)
             logger.info("calc " + variable_name +" for pc6 id "+ str(int(id)) +  " row_index = " + str(row_index) + " result= " +  str(result_one_tuple) + "; running time = " +  str(time_diff_min) + " mins! " + str(time_diff) + " sec! buffer = " + str(buffer))
         
             # empty list
@@ -125,7 +125,7 @@ def calc(table, buffer):
     total_end_time = time.time()
     total_time_diff = total_end_time - total_start_time # in seconds
     total_time_diff = round(total_time_diff/(60*60), 2)   # in hours
-    print "finish calculating " + variable_name +" index...processed time in hours = ", total_time_diff," buffer size = ", buffer
+    print("finish calculating " + variable_name +" index...processed time in hours = ", total_time_diff," buffer size = ", buffer)
     logger.info("finish calculating "+ variable_name +" index...processed time in hours= "+ str(total_time_diff) + " buffer size = " + str(buffer))        
     
     

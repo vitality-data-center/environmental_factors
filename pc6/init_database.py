@@ -1,4 +1,4 @@
-import utility_fun as uf
+import utility_fun2 as uf
 import time
 import logging
 
@@ -42,7 +42,7 @@ def get_target_table(buffer):
     
     end_time = time.time()
     time_diff = end_time - start_time # in seconds
-    print "create table for ", uf.target_table+'_'+str(buffer), "; running time = ", (time_diff/60), " mins! ", time_diff, " sec! ", time_diff*1000, " million seconds!"
+    print("create table for ", uf.target_table+'_'+str(buffer), "; running time = ", (time_diff/60), " mins! ", time_diff, " sec! ", time_diff*1000, " million seconds!")
     logger.info("create table for "+ uf.target_table+'_'+str(buffer) + "; running time = " + str((time_diff/60)) + " mins! " + str(time_diff) + " sec! " + str(time_diff*1000) + " million seconds!")  
     
     return uf.target_table+'_'+str(buffer)

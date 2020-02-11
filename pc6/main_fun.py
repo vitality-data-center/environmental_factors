@@ -10,7 +10,8 @@ import calc_landuse_p6
 import calc_address_p6
 import calc_ndvi_p6
 import calc_crossing_p6
-import utility_fun as uf
+import calc_no2_p6
+import utility_fun2 as uf
 import logging
 import time
 
@@ -30,7 +31,10 @@ def calc_index(buffer):
     
     
     # address
-    calc_address_p6.calc(target_buffer_table, buffer)
+    # calc_address_p6.calc(target_buffer_table, buffer)
+    
+    # no2 in 2011
+    #calc_no2_p6.calc(target_buffer_table, buffer)
     
     
     
@@ -86,15 +90,15 @@ def calc_index(buffer):
        
     
     
-#      # calc ndvi index  
-#     start_time = time.time()
-#     calc_ndvi_p6.calc(target_buffer_table, buffer) # ndvi
-#     end_time = time.time()
-#     time_diff = end_time - start_time # in seconds
-#     time_diff = round(time_diff/(60*60), 2)   # in hours
-#     print "finish calculating ndvi index...processed time in hours = ", time_diff," buffer size = ", buffer
-#     vdc_logger.info("finish calculating ndvi index...processed time in hours= "+ str(time_diff) + " buffer size = " + str(buffer))
-#    
+    # calc ndvi index  
+    start_time = time.time()
+    calc_ndvi_p6.calc(target_buffer_table, buffer) # ndvi
+    end_time = time.time()
+    time_diff = end_time - start_time # in seconds
+    time_diff = round(time_diff/(60*60), 2)   # in hours
+    print ("finish calculating ndvi index...processed time in hours = ", time_diff," buffer size = ", buffer)
+    vdc_logger.info("finish calculating ndvi index...processed time in hours= "+ str(time_diff) + " buffer size = " + str(buffer))
+    
     
     
 
@@ -104,7 +108,7 @@ uf.init_logger()
 vdc_logger = logging.getLogger("vdc_logger")
 for i in range(len(uf.buffer_size_list)):
     current_buffer = uf.buffer_size_list[i]
-    print "start calculating index for buffer ", current_buffer
+    print("start calculating index for buffer ", current_buffer)
     vdc_logger.info("start calculating index for buffer"+ str(current_buffer))
     calc_index(current_buffer)
 
