@@ -7,11 +7,11 @@ import math
 import psycopg2
 import time
 import logging
-
 logger = logging.getLogger("vdc_logger")
-source_table = uf.source_table # nl_pc6 table
-batch_num = uf.batch_number
-target_table = uf.target_table
+
+
+
+
 buffer_area = 0.0; 
 pixel_area = 0.0; 
 
@@ -19,7 +19,7 @@ def update_all_noise(records, buffer):
     
     try:
         cur_update, conn_update = uf.connect()
-        cur_update.executemany("UPDATE " +target_table+"_"+ str(buffer) + " SET dn_1 = %s, dn_2 = %s, dn_3 = %s, dn_4 = %s, dn_5 = %s, dn_6 = %s where id = %s",
+        cur_update.executemany("UPDATE " +uf.target_table+"_"+ str(buffer) + " SET dn_1 = %s, dn_2 = %s, dn_3 = %s, dn_4 = %s, dn_5 = %s, dn_6 = %s where id = %s",
         records)
         conn_update.commit()
     except (Exception, psycopg2.Error) as error:
@@ -89,7 +89,7 @@ def calc(table, buffer):
     pixel_area = 10*10
     
     cur, conn = uf.connect()    
-    cur.execute("select gid, ST_AsText(st_centroid(geom)) from " + source_table +";")
+    cur.execute("select gid, ST_AsText(st_centroid(geom)) from " + uf.source_table +";")
     record_result_set = cur.fetchall()
   
     result_all_list = []

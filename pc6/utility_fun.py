@@ -1,22 +1,55 @@
+import logging
 import psycopg2
 
 source_table = 'pc6_2017_jan'
 target_table = 'environmental_factors'
-
-batch_number = 1000
-#buffer_size_list = [300, 600, 1000]
-#buffer_size_list = [600, 1000]
-buffer_size_list = [2000]
-
 linux_mode = True
 test_mode = False
 
-create_tables = True
-add_bldg_column = True
-add_street_column = True
-add_landuse_column = True
-add_airpollution_column = True
-add_noise_column = True
+
+batch_number = 1000
+buffer_size_list = [300, 600, 1000, 2000]
+#buffer_size_list = [600, 1000]
+
+
+
+create_tables = False
+add_bldg_column = False
+add_street_column = False
+add_landuse_column = False
+add_airpollution_column = False
+add_noise_column = False
+add_ndvi_column = False
+add_crossing_column = False
+add_commercial_column = False
+add_addr_column = False
+add_no2_column = False
+add_rdvi_column = True
+
+
+
+def init_logger():
+    logger = logging.getLogger("vdc_logger")
+    logger.setLevel(logging.INFO)
+    if linux_mode:
+        logfile = '/home/neil/log/logger.txt'
+        #logfile = '/home/zywang/python/log/logger.txt'
+    else:
+        logfile = 'J://vdc_workspace//vdc//log//logger.txt'
+    
+    fh = logging.FileHandler(logfile, mode='w')
+    fh.setLevel(logging.DEBUG)
+    ch = logging.StreamHandler()
+    ch.setLevel(logging.WARNING)   
+    
+    
+    formatter = logging.Formatter("%(asctime)s - %(filename)s[line:%(lineno)d] - %(levelname)s: %(message)s")
+    fh.setFormatter(formatter)
+    ch.setFormatter(formatter)
+        
+    logger.addHandler(fh) 
+    logger.addHandler(ch)
+
 
 
 
@@ -24,7 +57,8 @@ def connect():
         
     conn = None    
     if linux_mode:
-        conn = psycopg2.connect(database="postgres_nl", user="postgres",host="/var/run/postgresql", password="postgres", port="5432")
+        #conn = psycopg2.connect(database="postgres_nl", user="postgres",host="/var/run/postgresql", password="postgres", port="5432")
+        conn = psycopg2.connect(database="postgres_nl", user="zywang",host="/tmp/", password="2203930_ZyW", port="5432")
     else:
         if test_mode:
             conn = psycopg2.connect(database="postgres_test", user="postgres", password="postgres", port="5433")
