@@ -5,7 +5,7 @@ import string
 import sys
 import re
 import math
-import utility_fun as uf
+import utility_fun2 as uf
 import logging
 import time
 
@@ -73,7 +73,7 @@ def calc_landuse_index(pc6_id, center_geom_txt, buffer):
 
     result_set_1 = cur_1.fetchall()
     if  cur_1.rowcount==0:
-        print 'postcode = ', pc6_id, ' is not overlapped with any land use classes!'
+        print('postcode = ', pc6_id, ' is not overlapped with any land use classes!')
         return 0, 0, 0
     
        
@@ -135,7 +135,7 @@ def calc(table, buffer):
         
         landuse_idx, land_prop_list, prop_sum = calc_landuse_index(id, center_geom_txt, buffer)
         if  landuse_idx < 0.0001 or prop_sum  > 1 :
-            print "not normal landuse index for pc6 = ", int(id),  " landuse index = ", landuse_idx, " land_prop_list = ", land_prop_list, " prop_sum = ", prop_sum
+            print("not normal landuse index for pc6 = ", int(id),  " landuse index = ", landuse_idx, " land_prop_list = ", land_prop_list, " prop_sum = ", prop_sum)
             logger.info('"not noraml landuse index for pc6 = ' + str(id) + " ; lanuse index number = " + str(landuse_idx) + "; prop_sum number = " + str(prop_sum) + " land_prop_list = "  +  str(land_prop_list).strip('[]'))
                          
                          
@@ -149,7 +149,7 @@ def calc(table, buffer):
             time_diff = round(time_diff, 2)
             time_diff_min = round(time_diff/60, 2) # in mins
             
-            print "calc landuse for pc6 id ", int(id), "row_index = " , row_index, " result= " , result_one_tuple, "; running time = ", time_diff_min, " mins! ", time_diff, " sec! ", " buffer = ", buffer
+            print("calc landuse for pc6 id ", int(id), "row_index = " , row_index, " result= " , result_one_tuple, "; running time = ", time_diff_min, " mins! ", time_diff, " sec! ", " buffer = ", buffer)
             logger.info("calc landuse for pc6 id "+ str(int(id))+  " row_index = " + str(row_index) + " result= " +  str(result_one_tuple) + "; running time = " +  str(time_diff_min) + " mins! " + str(time_diff) + " sec! buffer = " + str(buffer))
         
             # empty list

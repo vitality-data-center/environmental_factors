@@ -2,16 +2,16 @@
 #coding:utf-8
 
 
-import utility_fun as uf
+import utility_fun2 as uf
 import math
 import psycopg2
 import time
 import logging
-
 logger = logging.getLogger("vdc_logger")
-source_table = uf.source_table # nl_pc6 table
-batch_num = uf.batch_number
-target_table = uf.target_table
+
+
+
+
 buffer_area = 0.0; 
 pixel_area = 0.0; 
 
@@ -19,7 +19,7 @@ def update_all_noise(records, buffer):
     
     try:
         cur_update, conn_update = uf.connect()
-        cur_update.executemany("UPDATE " +target_table+"_"+ str(buffer) + " SET dn_1 = %s, dn_2 = %s, dn_3 = %s, dn_4 = %s, dn_5 = %s, dn_6 = %s where id = %s",
+        cur_update.executemany("UPDATE " +uf.target_table+"_"+ str(buffer) + " SET dn_1 = %s, dn_2 = %s, dn_3 = %s, dn_4 = %s, dn_5 = %s, dn_6 = %s where id = %s",
         records)
         conn_update.commit()
     except (Exception, psycopg2.Error) as error:
@@ -89,7 +89,7 @@ def calc(table, buffer):
     pixel_area = 10*10
     
     cur, conn = uf.connect()    
-    cur.execute("select gid, ST_AsText(st_centroid(geom)) from " + source_table +";")
+    cur.execute("select gid, ST_AsText(st_centroid(geom)) from " + uf.source_table +";")
     record_result_set = cur.fetchall()
   
     result_all_list = []
@@ -105,7 +105,7 @@ def calc(table, buffer):
         id, dn_1, dn_2, dn_3, dn_4, dn_5, dn_6 = calc_noise_distributions(id, center_geom_txt, buffer)
         dn_sum = dn_1 + dn_2 +  dn_3 + dn_4 + dn_5 + dn_6 
         if  dn_sum - 1 > 0.0001:
-            print "something wrong with calc area for pc6 ", id, "; dn_sum = ", dn_sum
+            print("something wrong with calc area for pc6 ", id, "; dn_sum = ", dn_sum)
     
         result_one_tuple = (dn_1, dn_2, dn_3, dn_4, dn_5, dn_6, id)
         result_all_list.append(result_one_tuple)
@@ -117,7 +117,7 @@ def calc(table, buffer):
             time_diff = round(time_diff, 2)
             time_diff_min = round(time_diff/60, 2) # in mins
             
-            print "calc noise for pc6 id ", int(id), "row_index = " , row_index, " result= " , result_one_tuple, "; running time = ", time_diff_min, " mins! ", time_diff, " sec! ", " buffer = ", buffer
+            print("calc noise for pc6 id ", int(id), "row_index = " , row_index, " result= " , result_one_tuple, "; running time = ", time_diff_min, " mins! ", time_diff, " sec! ", " buffer = ", buffer)
             logger.info("calc noise for pc6 id "+ str(int(id))+  " row_index = " + str(row_index) + " result= " +  str(result_one_tuple) + "; running time = " +  str(time_diff_min) + " mins! " + str(time_diff) + " sec! buffer = " + str(buffer))
         
             # empty list

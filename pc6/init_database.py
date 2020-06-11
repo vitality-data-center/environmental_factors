@@ -1,4 +1,4 @@
-import utility_fun as uf
+import utility_fun2 as uf
 import time
 import logging
 
@@ -42,7 +42,7 @@ def get_target_table(buffer):
     
     end_time = time.time()
     time_diff = end_time - start_time # in seconds
-    print "create table for ", uf.target_table+'_'+str(buffer), "; running time = ", (time_diff/60), " mins! ", time_diff, " sec! ", time_diff*1000, " million seconds!"
+    print("create table for ", uf.target_table+'_'+str(buffer), "; running time = ", (time_diff/60), " mins! ", time_diff, " sec! ", time_diff*1000, " million seconds!")
     logger.info("create table for "+ uf.target_table+'_'+str(buffer) + "; running time = " + str((time_diff/60)) + " mins! " + str(time_diff) + " sec! " + str(time_diff*1000) + " million seconds!")  
     
     return uf.target_table+'_'+str(buffer)
@@ -113,6 +113,47 @@ def add_columns(buffer):
         cur1.execute("""
         ALTER TABLE """ +uf.target_table+'_'+str(buffer)+""" DROP COLUMN IF EXISTS landuse_idx;
         ALTER TABLE """ +uf.target_table+'_'+str(buffer)+""" ADD COLUMN landuse_idx double precision;""")
+        
+        
+    # ndvi index 
+    if uf.add_ndvi_column:
+        cur1.execute("""
+        ALTER TABLE """ +uf.target_table+'_'+str(buffer)+""" DROP COLUMN IF EXISTS ndvi_avg;
+        ALTER TABLE """ +uf.target_table+'_'+str(buffer)+""" ADD COLUMN ndvi_avg double precision;""") 
+        
+    # crossing index 
+    if uf.add_crossing_column:
+        cur1.execute("""
+        ALTER TABLE """ +uf.target_table+'_'+str(buffer)+""" DROP COLUMN IF EXISTS crossing_num;
+        ALTER TABLE """ +uf.target_table+'_'+str(buffer)+""" ADD COLUMN crossing_num double precision;""")
+    
+    
+    if uf.add_commercial_column:
+        cur1.execute("""
+        ALTER TABLE """ +uf.target_table+'_'+str(buffer)+""" DROP COLUMN IF EXISTS comm_bldg_ratio;
+        ALTER TABLE """ +uf.target_table+'_'+str(buffer)+""" ADD COLUMN comm_bldg_ratio double precision; 
+        ALTER TABLE """ +uf.target_table+'_'+str(buffer)+""" DROP COLUMN IF EXISTS resi_bldg_ratio;
+        ALTER TABLE """ +uf.target_table+'_'+str(buffer)+""" ADD COLUMN resi_bldg_ratio double precision;""")
+        
+    # degree of urbanization 
+    if uf.add_addr_column:
+        cur1.execute("""
+        ALTER TABLE """ +uf.target_table+'_'+str(buffer)+""" DROP COLUMN IF EXISTS addr_num;
+        ALTER TABLE """ +uf.target_table+'_'+str(buffer)+""" ADD COLUMN addr_num double precision;""")
+    
+    # no2 in 2011 
+    if uf.add_no2_column:
+        cur1.execute("""
+        ALTER TABLE """ +uf.target_table+'_'+str(buffer)+""" DROP COLUMN IF EXISTS no2_2011;
+        ALTER TABLE """ +uf.target_table+'_'+str(buffer)+""" ADD COLUMN no2_2011 double precision;""")         
+
+
+    # rdvi index 
+    if uf.add_rdvi_column:
+        cur1.execute("""
+        ALTER TABLE """ +uf.target_table+'_'+str(buffer)+""" DROP COLUMN IF EXISTS rdvi_avg;
+        ALTER TABLE """ +uf.target_table+'_'+str(buffer)+""" ADD COLUMN rdvi_avg double precision;""")             
+                          
 
     conn1.commit()
     cur1.close()

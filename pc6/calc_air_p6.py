@@ -1,7 +1,7 @@
 #!/usr/bin/python
 #coding:utf-8
 
-import utility_fun as uf
+import utility_fun2 as uf
 import psycopg2
 import math
 import time 
@@ -126,8 +126,8 @@ def calc(table, buffer):
         nox_avg, rate_sum2 = calc_nox_idx(id, center_geom_txt, buffer)
     
         if  rate_sum1 - 1 > 0.0001 or rate_sum2 - 1 > 0.0001:
-            print "something wrong with calc air index for pc6 = ", id,  rate_sum1, rate_sum2
-            print "pc6 = ", id, "; area = ", buffer_area , "; no2_avg = ", no2_avg, "; nox_avg = ", nox_avg, "; pm25_avg = ", pm25_avg , "; pm10_avg = ", pm10_avg
+            print("something wrong with calc air index for pc6 = ", id,  rate_sum1, rate_sum2)
+            print("pc6 = ", id, "; area = ", buffer_area , "; no2_avg = ", no2_avg, "; nox_avg = ", nox_avg, "; pm25_avg = ", pm25_avg , "; pm10_avg = ", pm10_avg)
             logger.info('"something wrong with calc air index for pc6 = ' + str(id) + " ; sum1 = " + str(rate_sum1) + " ; sum2 = " + str(rate_sum2))
             logger.info("pc6 id = " + str(id) + "; area = " +  str(buffer_area) + "; no2_avg = " +  str(no2_avg) + "; nox_avg = " + str(nox_avg) + "; pm25_avg = " + str(pm25_avg) + "; pm10_avg = " + str(pm10_avg))
         
@@ -143,7 +143,7 @@ def calc(table, buffer):
             time_diff = round(time_diff, 2)
             time_diff_min = round(time_diff/60, 2) # in mins
             
-            print "calc air pollution index for pc6, id = ", int(id), " row_index = " , row_index, " result= " , result_one_tuple, "; running time = ", time_diff_min, " mins! ", time_diff, " sec! ", " buffer = ", buffer
+            print("calc air pollution index for pc6, id = ", int(id), " row_index = " , row_index, " result= " , result_one_tuple, "; running time = ", time_diff_min, " mins! ", time_diff, " sec! ", " buffer = ", buffer)
             logger.info("calc air pollution index for pc6, id = "+ str(int(id))+  " row_index = " + str(row_index) + " result= " +  str(result_one_tuple) + "; running time = " +  str(time_diff_min) + " mins! " + str(time_diff) + " sec! buffer = " + str(buffer))
         
             # empty list
