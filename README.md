@@ -5,9 +5,9 @@ development of environmental factors at 4 and 6 digit postcode level of the Neth
 
 #### crossing number (representing street connectivity)
 The number of crossings witihin the buffers (300, 600, and 1000) around each pc6 centroid.
-crossing_1: cul-de-sac
-crossing_3: 3-way crossings 
-crossing_4plus: >=4-way crossings 
+'crossing_1': cul-de-sac
+'crossing_3': 3-way crossings 
+'crossing_4plus': >=4-way crossings 
 
 
 #### Address (representing degree of urbanization)
