@@ -4,9 +4,13 @@ development of environmental factors at 4 and 6 digit postcode level of the Neth
 *Xipei Ren, Zhiyong Wang, Carolin Nast, Dick Ettema, and Aarnout Brombacher. 2019. Integrating Industrial Design and Geoscience: a Survey on Data-Driven Research to Promote Public Health and Vitality. In 9th International Digital Public Health Conference (2019) (DPH’ 19), November 20–23, 2019, Marseille, France. ACM, New York, NY, USA, 5 pages. https://doi.org/10.1145/3357729.3357747*
 
 
+#### Address (representing degree of urbanization)
+The number of addresses witihin the buffers (300, 600, and 1000) around each pc6 centroid.
+It is indicated by the attribute `addr_num` in the datasets.
+
 #### Street density (from OpenStreetMap)
 It is indicated by the attribute `street_density` in the datasets.
-For pc4 , its value is the total length of all walking streets divided by the area of pc4. 
+For pc4, its value is the total length of all walking streets divided by the area of pc4. 
 For pc6, its value is the total length of all walking streets divided by the buffer area around the pc6 centroid.
 
 <img width="600" height="700"  src="https://github.com/vitality-data-center/environmental_factors/blob/master/images/road.png" />
