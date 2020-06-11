@@ -3,6 +3,12 @@ development of environmental factors at 4 and 6 digit postcode level of the Neth
 
 *Xipei Ren, Zhiyong Wang, Carolin Nast, Dick Ettema, and Aarnout Brombacher. 2019. Integrating Industrial Design and Geoscience: a Survey on Data-Driven Research to Promote Public Health and Vitality. In 9th International Digital Public Health Conference (2019) (DPH’ 19), November 20–23, 2019, Marseille, France. ACM, New York, NY, USA, 5 pages. https://doi.org/10.1145/3357729.3357747*
 
+#### crossing number (representing street connectivity)
+The number of crossings witihin the buffers (300, 600, and 1000) around each pc6 centroid.
+crossing_1: cul-de-sac
+crossing_3: 3-way crossings 
+crossing_4plus: >=4-way crossings 
+
 
 #### Address (representing degree of urbanization)
 The number of addresses witihin the buffers (300, 600, and 1000) around each pc6 centroid.
@@ -73,6 +79,7 @@ The details of ndvi can be found via the following link:
 https://gisgeography.com/ndvi-normalized-difference-vegetation-index/.
 For pc4, their values are the average values of all cells of in each pc4. 
 For pc6, their values are the average values of all cells in the buffer around pc6 centroid.
+Note that negative values are excluded from the calculation.
 
 <img width="600" height="700"  src="https://github.com/vitality-data-center/environmental_factors/blob/master/images/ndvi.png" />
 
