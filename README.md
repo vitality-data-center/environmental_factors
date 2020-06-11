@@ -76,9 +76,9 @@ For pc6, it is calcuated based on the following five land use classification:<br
 
 #### NDVI (Normalized Difference Vegetation Index)
 The details of ndvi can be found via the following link:
-https://gisgeography.com/ndvi-normalized-difference-vegetation-index/.
-For pc4, their values are the average values of all cells of in each pc4. 
-For pc6, their values are the average values of all cells in the buffer around pc6 centroid.
+https://gisgeography.com/ndvi-normalized-difference-vegetation-index/. <br>
+For pc4, their values are the average values of all cells of in each pc4. <br>
+For pc6, their values are the average values of all cells in the buffer around pc6 centroid.<br>
 Note that negative values are excluded from the calculation.
 
 <img width="600" height="700"  src="https://github.com/vitality-data-center/environmental_factors/blob/master/images/ndvi.png" />
