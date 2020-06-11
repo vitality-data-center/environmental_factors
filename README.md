@@ -68,8 +68,8 @@ For pc6, it is calcuated based on the following five land use classification:<br
 - Group 1, residential, 20
 - Group 2, recreational 40, 41, 42, 43, 44, 50, 51, 60, 61, 62, 70, 71, 72, 73, 74, 75, 76, 77, 78, 80, 81, 82, 83
 - Group 3, other: 10, 11, 12, 22, 23, 30, 31, 32, 33, 34, 35
-- Group 4, residential, 21
-- Group 5, residential, 24
+- Group 4, commercial, 21
+- Group 5, industrial, 24
 
 <img width="600"  src="https://github.com/vitality-data-center/environmental_factors/blob/master/images/landuse1.png" />
 <img width="618"  src="https://github.com/vitality-data-center/environmental_factors/blob/master/images/landuse2.png" />
