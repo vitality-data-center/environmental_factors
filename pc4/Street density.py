@@ -46,9 +46,9 @@ def update_all_str_idx(records):
 
 
 def cal_str_den(pc4, pc4_area):
- #   sql = """ select b2.linestring,b2.id,ST_Length(ST_Intersection(ST_Transform(ST_MakeValid(b2.linestring),28992),ST_Transform(ST_MakeValid(b1.geom), 28992))) from public.ways b2, public.pc4_2017 b1 where ST_Intersects(ST_Transform(ST_MakeValid(b2.linestring),28992),ST_Transform(ST_MakeValid(b1.geom),28992)) and b1.pc4 = s%"""
+ #   sql = """ select b2.linestring,b2.id,ST_Length(ST_Intersection(ST_Transform(ST_MakeValid(b2.linestring),28992),ST_Transform(ST_MakeValid(b1.geom), 28992))) from public.ways b2, public.pc4_2017 b1 where ST_Intersects(ST_Transform(ST_MakeValid(b2.linestring),28992),ST_Transform(ST_MakeValid(b1.geom),28992)) and b1.pc4 = s% and (b2.tags->'highway'IS NOT NULL)"""
     cur_str, conn_str = connect()
-    cur_str.execute("select b2.id, ST_Length(ST_Intersection(ST_Transform(ST_MakeValid(b2.linestring),28992),ST_Transform(ST_MakeValid(b1.geom), 28992))) from public.ways b2, public.pc4_2017 b1 where b1.pc4 = %s and ST_Intersects(ST_Transform(ST_MakeValid(b2.linestring),28992),ST_Transform(ST_MakeValid(b1.geom),28992));",([pc4]))
+    cur_str.execute("select b2.id, ST_Length(ST_Intersection(ST_Transform(ST_MakeValid(b2.linestring),28992),ST_Transform(ST_MakeValid(b1.geom), 28992))) from public.ways b2, public.pc4_2017 b1 where b1.pc4 = %s and ST_Intersects(ST_Transform(ST_MakeValid(b2.linestring),28992),ST_Transform(ST_MakeValid(b1.geom),28992)) and (b2.tags->'highway'IS NOT NULL);",([pc4]))
     conn_str.commit()
     result_set_str = cur.fetchall()
     if cur_str.rowcount==0:
