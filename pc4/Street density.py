@@ -1,16 +1,16 @@
 import sys
+from typing import Tuple
 import psycopg2
-import re
+import math
 import string
 import logging
-import decimal
+import datetime
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
-
-logfile = 'C:\Users\PC\AppData\Roaming\JetBrains\PyCharmCE2020.1\scratches\street_den.txt'
+logfile = 'C:/Windows/Temp/logger.txt'
 fh = logging.FileHandler(logfile, mode='w')
-fh.setLevel(logging.DEBUG)
+fh.setLevel(logging.INFO)
 sh = logging.StreamHandler()
 sh.setLevel(logging.WARNING)
 
@@ -22,8 +22,8 @@ logger.addHandler(fh)
 logger.addHandler(sh)
 
 
-def connect_str():
-    conn = psycopg2.connect(database="osm", user="postgres", host="localhost", password="13274027231Zsy!", port="5432")
+def connect():
+    conn = psycopg2.connect(database="osm", user="postgres", host="localhost", password="13274027231Zsy", port="5432")
     cur = conn.cursor()
     return cur, conn
 
@@ -34,7 +34,7 @@ def update_all_str_idx(records):
                   SET str_den = %s
                   WHERE pc4 = %s"""
     try:
-        cur_update,conn_update = connect_str()
+        cur_update,conn_update = connect()
         cur_update.executemany(sql,records)
         conn_update.commit()
     except (Exception, psycopg2.Error) as error:
@@ -45,27 +45,31 @@ def update_all_str_idx(records):
             conn_update.close()
 
 
-def cal_str_len (pc4, pc4_area):
-    sql = """ select linestring, ST_Length(st_transform(linestring, 28992)) from ways as a,
-                      geom, ST_Area(st_transform(Area, 28992)) from pc4_2017 as b,
-                      where ST_Contains(a.geom, b.geom) and a.pc4 = %s"""
-    cur_str, conn_str = connect_str()
-    cur_str.execute(sql, str_len)
-    con_str.commit()
-    result_set_str = cur_str.fetchall()
+def cal_str_den(pc4, pc4_area):
+ #   sql = """ select b2.linestring,b2.id,ST_Length(ST_Intersection(ST_Transform(ST_MakeValid(b2.linestring),28992),ST_Transform(ST_MakeValid(b1.geom), 28992))) from public.ways b2, public.pc4_2017 b1 where ST_Intersects(ST_Transform(ST_MakeValid(b2.linestring),28992),ST_Transform(ST_MakeValid(b1.geom),28992)) and b1.pc4 = s%"""
+    cur_str, conn_str = connect()
+    cur_str.execute("select b2.id, ST_Length(ST_Intersection(ST_Transform(ST_MakeValid(b2.linestring),28992),ST_Transform(ST_MakeValid(b1.geom), 28992))) from public.ways b2, public.pc4_2017 b1 where b1.pc4 = %s and ST_Intersects(ST_Transform(ST_MakeValid(b2.linestring),28992),ST_Transform(ST_MakeValid(b1.geom),28992));",([pc4]))
+    conn_str.commit()
+    result_set_str = cur.fetchall()
     if cur_str.rowcount==0:
-        print ('postcode = ', pc4), 'the polygon includes no street'
-        return 0,0,0,0
+        print('postcode = ', pc4), 'the polygon includes no street'
+        return 0,0
 
     str_len = 0.0
+    str_den = 0.0
 
 
     for record in result_set_str:
-        str_len = record[0]
-        str_den = str_len/pc4_area
-        return str_den
+        str_len = record[1] + str_len
 
-cur, conn = connect_str()
+    str_den = str_len/pc4_area
+
+    cur_str.close()
+    cur_str.close()
+
+    return str_den
+
+cur, conn = connect()
 
 cur.execute("""
 ALTER TABLE pc4_2017 DROP COLUMN IF EXISTS str_den;
@@ -73,8 +77,7 @@ AlTER TABLE pc4_2017 ADD COLUMN str_den double precision;
 """)
 
 conn.commit()
-cur.execute("select pc4_2017, shape_area, ST_AsText(GeomFromEWKT('SRID=4326;geom')) from pc4_2017 ")
-
+cur.execute("select pc4, ST_Area(ST_Transform(ST_MakeValid(geom), 28992)), ST_AsText(geom) from pc4_2017 ")
 record_result_set = cur.fetchall()
 
 record_number = cur.rowcount
