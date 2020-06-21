@@ -21,10 +21,10 @@ sh.setFormatter(formatter)
 logger.addHandler(fh)
 logger.addHandler(sh)
 
-def connect_pc():
-    conn = psycopg2.connect(database="pc4_2017", user="postgres", host="localhost", password="13274027231Zsy!", port="5432")
-    cur = conn.cursor()
-    return cur, conn
+#def connect_pc():
+#   conn = psycopg2.connect(database="pc4_2017", user="postgres", host="localhost", password="13274027231Zsy!", port="5432")
+#   cur = conn.cursor()
+#    return cur, conn
 
 def connect_str():
     conn = psycopg2.connect(database="osm", user="postgres", host="localhost", password="13274027231Zsy!", port="5432")
@@ -38,7 +38,7 @@ def update_all_str_idx(records):
                   SET str_den = %s
                   WHERE pc4 = %s"""
     try:
-        cur_update,conn_update = connect_pc()
+        cur_update,conn_update = connect_str()
         cur_update.executemany(sql,records)
         conn_update.commit()
     except (Exception, psycopg2.Error) as error:
@@ -53,7 +53,7 @@ def cal_str_len (pc4, pc4_area):
     sql = """ select linestring, ST_Length(st_transform(linestring, 28992)) from ways as a,
                       geom, ST_Area(st_transform(Area, 28992)) from pc4_2017 as b,
                       where ST_Contains(a.geom, b.geom) and a.pc4 = %s"""
-    cur_str, conn_str = connect_pc()
+    cur_str, conn_str = connect_str()
     cur_str.execute(sql, str_len)
     con_str.commit()
     result_set_str = cur_str.fetchall()
@@ -69,7 +69,7 @@ def cal_str_len (pc4, pc4_area):
         str_den = str_len/pc4_area
         return str_den
 
-cur, conn = connect_pc()
+cur, conn = connect_str()
 
 cur.execute("""
 ALTER TABLE pc4_2017 DROP COLUMN IF EXISTS str_den;
