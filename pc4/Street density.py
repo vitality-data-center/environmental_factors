@@ -21,10 +21,6 @@ sh.setFormatter(formatter)
 logger.addHandler(fh)
 logger.addHandler(sh)
 
-#def connect_pc():
-#   conn = psycopg2.connect(database="pc4_2017", user="postgres", host="localhost", password="13274027231Zsy!", port="5432")
-#   cur = conn.cursor()
-#    return cur, conn
 
 def connect_str():
     conn = psycopg2.connect(database="osm", user="postgres", host="localhost", password="13274027231Zsy!", port="5432")
@@ -79,3 +75,42 @@ AlTER TABLE pc4_2017 ADD COLUMN str_den double precision;
 conn.commit()
 cur.execute("select pc4_2017, shape_area, ST_AsText(GeomFromEWKT('SRID=4326;geom')) from pc4_2017 ")
 
+record_result_set = cur.fetchall()
+
+record_number = cur.rowcount
+
+row_index = 0
+str_den_list = []
+starttime = datetime.datetime.now()
+
+for row in record_result_set:
+    row_index = row_index + 1
+    str_den_tuple=()
+    pc4 = row[0]
+    pc4_area = row[1]
+    geo_wgs84_text = row[2]
+    str_den = cal_str_den(pc4, float(pc4_area))
+
+
+    if abs(str_den) < 0.000001:
+        print("errors occured when cal street density for pc4 = ", pc4, str_den)
+        print("pc4 = ", pc4, "area = ", pc4_area, "str_den = ", str_den)
+        logging.info('"something wrong with calc street density for pc4 = ' + str(pc4) + " ; str_den ="+ str(str_den))
+        logging.info("pc4 = " + str(pc4) + "; area = " + str(pc4_area) + "; str_den = " + str(str_den))
+
+    str_den_tuple = (str_den, pc4)
+    str_den_list.append(str_den_tuple)
+
+    if row_index % 10 == 0:
+        update_all_str_idx(str_den_list)
+        endtime = datetime.datetime.now()
+        print("for pc4 ", pc4, row_index, "; running time = ", (endtime - starttime).seconds / 60, " mins! ", (endtime - starttime).seconds, " seconds!")
+        starttime = datetime.datetime.now()
+        str_den_list = []
+
+    #keep recording the updated rows
+    logging.info(f"polygon {pc4}")
+    update_all_str_idx(str_den_list)
+
+cur.close()
+conn.close()
