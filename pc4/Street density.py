@@ -45,29 +45,36 @@ def update_all_str_idx(records):
             conn_update.close()
 
 
-def cal_str_den(pc4, pc4_area):
- #   sql = """ select b2.linestring,b2.id,ST_Length(ST_Intersection(ST_Transform(ST_MakeValid(b2.linestring),28992),ST_Transform(ST_MakeValid(b1.geom), 28992))) from public.ways b2, public.pc4_2017 b1 where ST_Intersects(ST_Transform(ST_MakeValid(b2.linestring),28992),ST_Transform(ST_MakeValid(b1.geom),28992)) and b1.pc4 = s% and (b2.tags->'highway'IS NOT NULL)"""
+def cal_str_den(pc4,pc4_area):
+
+ #   sql = """ select ST_Length(b3.geom) from public.pc4_2017 b1, public.reprojected b3 where pc4 = %s and ST_Intersects(b3.geom, b1.geom) and ST_IsValid(b1.geom) is true """
     cur_str, conn_str = connect()
-    cur_str.execute("select b2.id, ST_Length(ST_Intersection(ST_Transform(ST_MakeValid(b2.linestring),28992),ST_Transform(ST_MakeValid(b1.geom), 28992))) from public.ways b2, public.pc4_2017 b1 where b1.pc4 = %s and ST_Intersects(ST_Transform(ST_MakeValid(b2.linestring),28992),ST_Transform(ST_MakeValid(b1.geom),28992)) and (b2.tags->'highway'IS NOT NULL);",([pc4]))
-    conn_str.commit()
-    result_set_str = cur.fetchall()
-    if cur_str.rowcount==0:
-        print('postcode = ', pc4), 'the polygon includes no street'
-        return 0,0
+    cur_str.execute("select ST_Length(b3.geom) from public.pc4_2017 b1, public.reprojected b3 where pc4 = %s and ST_Intersects(b3.geom, b1.geom);",([pc4]))
+    result_set_str = cur_str.fetchall()
 
-    str_len = 0.0
+
+    str_len_sum = 0.0
     str_den = 0.0
-
-
     for record in result_set_str:
-        str_len = record[1] + str_len
+        str_len = result_set_str[0]
 
-    str_den = str_len/pc4_area
+        str_len_str = str(str_len)
+        change_str = str_len_str.strip(',()')
+        str_len_float = float(change_str)
+        str_len_sum = str_len_sum + str_len_float
+
+    str_den = str_len_sum / pc4_area + str_den
+    #check length of all streets in a pc4 area
+    logging.info(f'street length in the pc4 {pc4}:'+ str(str_len_sum) + f'street density in the pc4 {pc4}:'+ str(str_den))
+    if cur_str.rowcount == 0:
+        print('postcode = ', pc4), 'the polygon includes no street'
+        return 0, 0
 
     cur_str.close()
     cur_str.close()
 
     return str_den
+
 
 cur, conn = connect()
 
@@ -77,27 +84,29 @@ AlTER TABLE pc4_2017 ADD COLUMN str_den double precision;
 """)
 
 conn.commit()
-cur.execute("select pc4, ST_Area(ST_Transform(ST_MakeValid(geom), 28992)), ST_AsText(geom) from pc4_2017 ")
+cur.execute(" select pc4, ST_Area(geom) from public.pc4_2017")
 record_result_set = cur.fetchall()
 
 record_number = cur.rowcount
-
 row_index = 0
 str_den_list = []
 starttime = datetime.datetime.now()
 
 for row in record_result_set:
     row_index = row_index + 1
+
     str_den_tuple=()
     pc4 = row[0]
     pc4_area = row[1]
-    geo_wgs84_text = row[2]
+
+
+#   geo_wgs84_text = row[2]
     str_den = cal_str_den(pc4, float(pc4_area))
 
 
     if abs(str_den) < 0.000001:
-        print("errors occured when cal street density for pc4 = ", pc4, str_den)
-        print("pc4 = ", pc4, "area = ", pc4_area, "str_den = ", str_den)
+        print("errors occured when cal street density for pc4 = ", pc4)
+        print("area = ", pc4_area, "street density = ", str_den)
         logging.info('"something wrong with calc street density for pc4 = ' + str(pc4) + " ; str_den ="+ str(str_den))
         logging.info("pc4 = " + str(pc4) + "; area = " + str(pc4_area) + "; str_den = " + str(str_den))
 
