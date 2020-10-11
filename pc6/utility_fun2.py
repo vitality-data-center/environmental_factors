@@ -1,3 +1,13 @@
+#-------------------------------------------------------------------------------
+# Name:     utilify_fun2
+# Purpose:  utility function
+#
+# Author:      Zhiyong Wang
+#
+# Created:     09/2019
+# Copyright:   (c) Zhiyong 2019
+# Licence:     <your licence>
+#-------------------------------------------------------------------------------
 import logging
 import psycopg2
 

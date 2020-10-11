@@ -1,9 +1,16 @@
-import utility_fun2 as uf
+#-------------------------------------------------------------------------------
+# Name:     init_database
+# Purpose:  configure the database
+#
+# Author:      Zhiyong Wang
+#
+# Created:     09/2019
+# Copyright:   (c) Zhiyong 2019
+# Licence:     <your licence>
+#-------------------------------------------------------------------------------import utility_fun2 as uf
+
 import time
 import logging
-
-
-
 logger = logging.getLogger("vdc_logger")
 
 def get_target_table(buffer):

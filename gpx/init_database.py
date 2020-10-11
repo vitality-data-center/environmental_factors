@@ -1,3 +1,14 @@
+#-------------------------------------------------------------------------------
+# Name:     init_database
+# Purpose:  configure the database
+#
+# Author:      Zhiyong Wang
+#
+# Created:     09/2019
+# Copyright:   (c) Zhiyong 2019
+# Licence:     <your licence>
+#-------------------------------------------------------------------------------
+
 import utility_fun2 as uf
 import time
 import logging

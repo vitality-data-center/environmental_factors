@@ -1,6 +1,15 @@
 #!/usr/bin/python
 #coding:utf-8
-
+#-------------------------------------------------------------------------------
+# Name:     calc_air_p4
+# Purpose:  Calculate the average air pollution concentrations for each pc4 area in The Netherlands
+#
+# Author:      Zhiyong Wang
+#
+# Created:     09/2019
+# Copyright:   (c) Zhiyong 2019
+# Licence:     <your licence>
+#-------------------------------------------------------------------------------
 
 import psycopg2
 from itertools import product

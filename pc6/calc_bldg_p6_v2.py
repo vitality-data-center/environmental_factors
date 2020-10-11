@@ -1,6 +1,15 @@
 #!/usr/bin/python
 #coding:utf-8
-
+#-------------------------------------------------------------------------------
+# Name:     calc_bldg_p6_v2
+# Purpose:  Calculate the average building density for each pc6 area in The Netherlands
+#
+# Author:      Zhiyong Wang
+#
+# Created:     09/2019
+# Copyright:   (c) Zhiyong 2019
+# Licence:     <your licence>
+#-------------------------------------------------------------------------------
 
 import psycopg2
 import time 

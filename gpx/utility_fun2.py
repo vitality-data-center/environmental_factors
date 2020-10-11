@@ -1,3 +1,13 @@
+#-------------------------------------------------------------------------------
+# Name:     utility_fun
+# Purpose:  utility function
+#
+# Author:      Zhiyong Wang
+#
+# Created:     09/2019
+# Copyright:   (c) Zhiyong 2019
+# Licence:     <your licence>
+#-------------------------------------------------------------------------------
 import logging
 import psycopg2
 import datetime

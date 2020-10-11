@@ -1,6 +1,15 @@
 #!/usr/bin/python
 #coding:utf-8
-
+#-------------------------------------------------------------------------------
+# Name:     calc_green_gpx
+# Purpose:  Calculate the average greenness value around gpx tracks
+#
+# Author:      Zhiyong Wang
+#
+# Created:     09/2019
+# Copyright:   (c) Zhiyong 2019
+# Licence:     <your licence>
+#-------------------------------------------------------------------------------
 
 import utility_fun2 as uf
 import math

@@ -1,5 +1,15 @@
 #!/usr/bin/python
 #coding:utf-8
+#-------------------------------------------------------------------------------
+# Name:     calc_noise_p4
+# Purpose:  Calculate the average noise level for each pc4 area in The Netherlands
+#
+# Author:      Zhiyong Wang
+#
+# Created:     09/2019
+# Copyright:   (c) Zhiyong 2019
+# Licence:     <your licence>
+#-------------------------------------------------------------------------------
 
 
 import psycopg2

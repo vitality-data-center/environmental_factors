@@ -1,6 +1,15 @@
 #!/usr/bin/python
 #coding:utf-8
-
+#-------------------------------------------------------------------------------
+# Name:     calc_ndvi_p6
+# Purpose:  Calculate the average greenness value for each pc6 area in The Netherlands
+#
+# Author:      Zhiyong Wang
+#
+# Created:     09/2019
+# Copyright:   (c) Zhiyong 2019
+# Licence:     <your licence>
+#-------------------------------------------------------------------------------
 
 import utility_fun2 as uf
 import math

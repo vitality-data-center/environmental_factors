@@ -1,5 +1,15 @@
 #!/usr/bin/python
 #coding:utf-8
+#-------------------------------------------------------------------------------
+# Name:     calc_landuse_gpx
+# Purpose:  Calculate the land use diversity around gpx tracks
+#
+# Author:      Zhiyong Wang
+#
+# Created:     09/2019
+# Copyright:   (c) Zhiyong 2019
+# Licence:     <your licence>
+#-------------------------------------------------------------------------------
 import psycopg2
 import string
 import sys

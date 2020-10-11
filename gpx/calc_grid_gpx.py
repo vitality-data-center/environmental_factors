@@ -1,3 +1,14 @@
+#-------------------------------------------------------------------------------
+# Name:     calc_grid_gpx
+# Purpose:  Calculate the nubmer of sport tracks for each cell in the Netherlands
+#
+# Author:      Zhiyong Wang
+#
+# Created:     09/2019
+# Copyright:   (c) Zhiyong 2019
+# Licence:     <your licence>
+#-------------------------------------------------------------------------------
+
 from __future__ import division
 import gdal, ogr, struct
 import numpy as np

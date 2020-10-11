@@ -1,5 +1,15 @@
 #!/usr/bin/python
 #coding:utf-8
+#-------------------------------------------------------------------------------
+# Name:     main_fun
+# Purpose:  the main function
+#
+# Author:      Zhiyong Wang
+#
+# Created:     09/2019
+# Copyright:   (c) Zhiyong 2019
+# Licence:     <your licence>
+#-------------------------------------------------------------------------------
 
 import init_database
 # import calc_bldg_gpx

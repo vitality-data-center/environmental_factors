@@ -1,6 +1,15 @@
 #!/usr/bin/python
 #coding:utf-8
-
+#-------------------------------------------------------------------------------
+# Name:     main_fun
+# Purpose:  The main function
+#
+# Author:      Zhiyong Wang
+#
+# Created:     09/2019
+# Copyright:   (c) Zhiyong 2019
+# Licence:     <your licence>
+#-------------------------------------------------------------------------------
 import init_database
 import calc_bldg_p6_v2
 import calc_street_p6
