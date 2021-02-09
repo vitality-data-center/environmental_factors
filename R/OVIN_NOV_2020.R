@@ -11,7 +11,7 @@ library(table1) #making table 1
 ovin_full <- read.csv("INSERTDIRECTORY/OVIN_2017_PC6.csv", header = T, sep = ";", dec = ".", quote = "\"", stringsAsFactors = F, na.strings = "#NULL!")
 
 ## read in walkability 2018 (exposure) data
-walk16 <- read.csv("INSERTDIRECTORY/walk_pc6_oct20.csv", header = T, sep = ";", dec = ".")
+walk16 <- read.csv("INSERTDIRECTORY/walk_pc6_2021jan24.csv", header = T, sep = ";", dec = ".")
 
 ## removing people that DO NOT move on the sample date at all 
 ovin_full <- ovin_full[!(ovin_full$Weggeweest==0),] #change from 115161 -> 107631 obs (from PC4 dataset) 
@@ -68,7 +68,7 @@ ovin_mean <- ovin_full %>%
   mutate(Urban = case_when(Sted == 1 ~ 1, 
                            Sted %in% c(2,3) ~ 2,
                            Sted %in% c(4,5) ~ 3)) %>%
-  set_labels(Urban, labels = c("<500 address/km2" = 1, "500 - 1500" = 2, "<1500 address/km2" = 3)) %>%
+  set_labels(Urban, labels = c(">2500 address/km2" = 1, "1000 - 2500" = 2, "<1000 address/km2" = 3)) %>%  #THIS HAS BEEN CHANGED
   mutate(Season = case_when(Week %in% (12:24) ~ 1,
                             Week %in% (25:39) ~2, #"summer"
                             Week %in% (40:51) ~3, #"fall" 
@@ -118,14 +118,6 @@ ovin_personal <- distinct(ovin_mean, OPID, .keep_all = T)
 #merging with walkability data
 ovin_merged <- merge(ovin_personal, Walk16, by.x = "HomePC6", by.y = "PC6", all.x = TRUE, all.y = FALSE) #merging exposure and outcome data
 
-#or manual merging of interested walkability indices in case the merge above is not successful/ too messy
-#ovin_personal$SES <- walk16$SES[match(as.numeric(ovin_personal$homePC4), as.numeric(walk16$PC4))] 
-#ovin_personal$walk18_pc6_nbh <- walk16$walk18_pc6_nbh[match(as.numeric(ovin_personal$homePC6), as.numeric(walk16$PC6))]
-#ovin_personal$walk18_pc6_150 <- walk16$walk18_pc6_150[match(as.numeric(ovin_personal$homePC6), as.numeric(walk16$PC6))]
-#ovin_personal$walk18_pc6_500 <- walk16$walk18_pc6_500[match(as.numeric(ovin_personal$homePC6), as.numeric(walk16$PC6))]
-#ovin_personal$walk18_pc6_1000 <- walk16$walk18_pc6_1000[match(as.numeric(ovin_personal$homePC6), as.numeric(walk16$PC6))]
-#ovin_merged <- ovin_personal
-
 ### making of Table 1: population characteristics by quintiles of neighborhood walkability ####
 
 #make quintiles of walkability for table 1
@@ -143,7 +135,7 @@ ovin_merged$HHAuto   <- factor(ovin_personal$HHAuto, levels=c(0,1,2), labels=c("
 ovin_merged$HHSam    <- factor(ovin_personal$HHSam, levels=c(1,2,3,4,5), labels=c("Single-person household", "Couple without children",
                                                                                   "Couple with children", "Single parent with children", "Other compositions"))
 ovin_merged$Season   <- factor(ovin_personal$Season, levels=c(1,2,3,4), labels=c("Spring", "Summer", "Autumn", "Winter"))
-ovin_merged$Urban    <- factor(ovin_personal$Urban, levels =c(1,2,3), labels=c("<500 addresses/km2", "500 - 1500", ">1500"))
+ovin_merged$Urban    <- factor(ovin_personal$Urban, levels =c(1,2,3), labels=c(">2500 addresses/km2", "1000 - 2500", "<1000"))  ##THIS HAS BEEN CHANGED
 ovin_merged$Weekdag  <- factor(ovin_personal$Weekdag, levels = c(0,1), labels=c("Weekend", "Weekday"))
 ovin_merged$Mode     <- factor(ovin_personal$Mode, levels = c(1,2,3), labels=c("Internet", "Telephone", "Face-to-face"))
 ovin_merged$bike_use <- factor(ovin_personal$bike_use, levels = c(0,1), labels=c("No","Yes"))
@@ -164,7 +156,6 @@ label(ovin_merged$SES) <- "Socioeconomic status score neighborhood"
 label(ovin_merged$Weekdag) <- "Day of the week"
 label(ovin_mergedl$Mode) <- "Response type"
 label(ovin_merged$bike_use) <- "Participants also bike on the same day"
-label(ovin_merged$walk18_pc6_nbh) <- "Neighborhood walkability around the home"
 label(ovin_merged$total_timebike) <- "Time spent biking, minutes"
 label(ovin_merged$total_distbike) <- "Distance biked, x100 meters"
 label(ovin_merged$total_timeactive) <- "Time spent biking & walking, minutes"
@@ -183,22 +174,27 @@ library(censReg) #tobit modelling
 
 ovin_merged <- na.omit(ovin_merged, cols=c("homePC6")) #complete case analysis for walking
 
-#Table1: only complete cases wrt home PC6
+#Table1: with complete cases
 table1(~ as.factor(Geslacht) + as.factor(Agegroup) + as.factor(Herkomst) + as.factor(Edu) + as.factor(Work) + as.factor(Income) + as.factor(HHAuto) + as.factor(HHSam) + as.factor(Season) + as.factor(Urban) + as.factor(Weekdag) + as.factor(Mode) + as.factor(bike_use) 
-       + SES + walk18_pc6_nbh + total_timewalk + total_distwalk + total_timebike + total_distbike + total_timeactive + total_distactive | factor(HomeWalkq), data = ovin_merged, label=T)
+       + SES + total_timewalk + total_distwalk + total_timebike + total_distbike + total_timeactive + total_distactive | factor(HomeWalkq), data = ovin_merged, label=T)
+#Table caption: characteristics of OVIN participants by quintiles of neighborhood walkabilty
 
-#manual tobit modelling, mostly for checking if looping works
-model_1_cens <- censReg(formula = total_timewalk ~ walk18_pc6_nbh, data= ovin_merged)
+# quick data check: these min-max normalized walkability indices should now range from 0 to 100 (or roughly, so please let me know if they do not!)
+fivenum(ovin_merged$walk18_pc6_nbh_n)
+fivenum(ovin_merged$walk18_pc6_150_n)
+fivenum(ovin_merged$walk18_pc6_500_n)
+fivenum(ovin_merged$walk18_pc6_1000_n)
+
+#manual tobit modelling for total time walked and walkabilily index buffer size 150m 
+#caption: Results for fully adjusted model of censored regression analysis between walkability at 150m buffer and total time spent walking.
+model_1_cens <- censReg(formula = total_timewalk ~ walk18_pc6_150_n + Agegroup + Geslacht + Herkomst + Edu + Work + Income + HHAuto + HHSam + SES + Season + Weekdag + Mode + bike_use, data= ovin_merged) 
 summary(model_1_cens)
-model_2_cens <- censReg(formula = total_timewalk ~ walk18_pc6_150 + Agegroup + Geslacht + Herkomst + Edu + Work + Income + HHAuto + HHSam + SES + Season + Weekdag + Mode, data= ovin_merged) 
-summary(model_2_cens)
 print(summary(model_2_cens), digits=2)
-model_3_cens <- censReg(formula = total_timewalk ~ walk18_pc6_500 + Agegroup + Geslacht + Herkomst + Edu + Work + Income + HHAuto + HHSam + SES + Season + Weekdag + Mode + bike_use, data= ovin_merged)
-summary(model_3_cens)
 
-#creating loops for models 1 2 and 3
+
+#creating loops for models 1 and 3
 dep_vars <- c("total_timewalk", "total_distwalk", "time_dis", "time_nondis", "dist_dis", "dist_nondis") #"total_timebike", "total_distbike", "total_timeactive", "total_distactive"
-ind_vars <- c("walk18_pc6_nbh", "walk18_pc6_150", "walk18_pc6_500", "walk18_pc6_1000") #can be extended later to analyze individual components
+ind_vars <- c("walk18_pc6_nbh_n", "walk18_pc6_150_n", "walk18_pc6_500_n", "walk18_pc6_1000_n") #can be extended later to analyze individual components
 
 #model 1: only walkability and outcome
 tobit_model1 <- lapply(ind_vars, function(h){
@@ -212,25 +208,11 @@ tobit_model1 <- lapply(ind_vars, function(h){
     (sprintf("%s (%s, %s)", estimate, lower, upper))
   }))})
 output_model1 <- do.call(rbind, tobit_model1)
-colnames(output_model1) <- dep_vars 
-rownames(output_model1) <- ind_vars
-output_model1 #print out models 1 for all walkability indices and all walking outcomes
-
-#model 2: adjusted for extra confounders
-#tobit_model2 <- lapply(ind_vars, function(h){
-#  f <- sprintf("%s + %s + %s + %s + %s + %s + %s + %s + %s + %s + %s + %s + %s", h, "Agegroup", "Geslacht" , "Herkomst",  "Edu",  "Work", "Income", "HHAuto", "HHSam", "SES", "Season", "Weekdag", "Mode") #Model 2
-#  unlist(lapply(dep_vars, function(g){
-#    k <- formula(paste(g, f, sep ="~"))
-#    m <- censReg(formula = k, data = ovin_merged) 
-#    estimate <- round(m$estimate[2], 2)
-#    lower <- round(confint(m)[2,1],2)
-#    upper <- round(confint(m)[2,2],2)
-#    (sprintf("%s (%s, %s)", estimate, lower, upper))
-#  }))})
-#output_model2 <- do.call(rbind, tobit_model2)
-#colnames(output_model2) <- dep_vars 
-#rownames(output_model2) <- ind_vars
-#output_model2 #print out models 2 for all walkability indices and all walking outcomes
+colnames(output_model1) <- c("Total time walked", "Total distance walked", "Discretionay walk time", "Nondiscretionary walk time", "Discretionary walk distance", "Nondiscretionary walk distance") #NAMES HAVE BEEN CHANGED TO BE MORE READABLE
+rownames(output_model1) <- c("Neighborhood walkability", "150m buffer walkability", "500m buffer walkability", "1000m buffer walkability") #NAMES HAVE BEEN CHANGED TO BE MORE READABLE
+library(xlsx)
+write.xlsx(output_model1, "OUTPUTDIRECTORY/model1_primary_analysis.xlsx")
+#Table caption: Table of effect estimates and 95%CI for minimally adjusted models (no confounders) of censored regression analyses between walkabiliy indices of different buffer sizes and walking outcomes.
 
 #model 3: fully adjusted models
 tobit_model3 <- lapply(ind_vars, function(h){
@@ -244,6 +226,7 @@ tobit_model3 <- lapply(ind_vars, function(h){
     (sprintf("%s (%s, %s)", estimate, lower, upper))
   }))})
 output_model3 <- do.call(rbind, tobit_model3)
-colnames(output_model3) <- dep_vars 
-rownames(output_model3) <- ind_vars
-output_model3 #print out models 3 for all walkability indices and all walking outcomes
+colnames(output_model3) <- c("Total time walked", "Total distance walked", "Discretionay walk time", "Nondiscretionary walk time", "Discretionary walk distance", "Nondiscretionary walk distance")  #NAMES HAVE BEEN CHANGED TO BE MORE READABLE
+rownames(output_model3) <- c("Neighborhood walkability", "150m buffer walkability", "500m buffer walkability", "1000m buffer walkability") #NAMES HAVE BEEN CHANGED TO BE MORE READABLE
+write.xlsx(output_model3, "OUTPUTDIRECTORY/model3_primary_analysis.xlsx") #export models 3 for all walkability indices and all walking outcomes
+#Table caption: Table of effect estimates and 95%CI for fully adjusted models (no confounders) of censored regression analyses between walkabiliy indices of different buffer sizes and walking outcomes. *Confounders in fully adjusted models include: Age group, sex, background, education level, work status, household income level, number of cars per household, household situation, neighbourhood socioeconomic status, season of the year, day of the week, mode of survey and whether participant also biked on the same day.     
